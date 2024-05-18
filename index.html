@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="imgs/favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <meta http-equiv="Content-Language" content="it">
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <title>Brewy's website</title>
@@ -11,6 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
     <style>
+        /* Hide the checkbox */
+        #mute-checkbox {
+            display: none;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -56,48 +61,78 @@
             margin: 0 10px;
         }
 
-        #play-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #FFFFFF;
-            color: #217DAE;
-            border: none;
+        #play-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            text-align: center;
+            font-size: 24px;
             cursor: pointer;
-            font-size: 16px;
         }
     </style>
 </head>
 
 <body>
-    <audio id="audio" loop>
-        <source src="next.mp3" type="audio/mpeg">
-    </audio>
-
     <div id="transition-overlay"></div>
     <div id="content">
         <p style="font-size: 56pt">:O</p>
         <p>it Seems Like you've landed on Brewy's Website.</p>
         <p>maybe adding a malwarewatch like server to make some downloads from me available. not soon tho</p>
-        <p>currently on version: STREAMSTUFF_0.0</p>
+        <p>currently on version: UP_AND_RUNNING</p>
         <p>proudly done with <b>Frontpage 2003</b>, <b>ChatGPT</b> and <b>&#10084;</b> From Brewy.</p>
+
+        <p style="font-size: 8pt">Music: Shape By LMan. Used On <b>Next Level</b>, Commodore 64 Demo made By
+            <b>Performers.</b>. seen at X'2023.</p>
         <div id="links">
-            <a href="https://www.youtube.com/">Youtube</a>
-            <a href="https://www.tiktok.com/">TikTok</a>
+            <a href="https://www.youtube.com/@BrewyStuff">Youtube</a>
+            <a href="https://www.tiktok.com/@sweet_k6anbegoniahype">TikTok</a>
             <a href="https://discord.com/invite/WsUZez5C97">Discord</a>
         </div>
     </div>
 
-    <label for="mute-checkbox">Mute/Unmute</label>
+    <div id="play-overlay" onclick="startAudio()">
+        Tap to start audio
+    </div>
+
+    <audio id="audio" loop>
+        <source src="next.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Checkbox to toggle mute/unmute -->
+    <label for="mute-checkbox">Mute/Unmute Music</label>
     <input type="checkbox" id="mute-checkbox">
-    <button id="play-button">Play Audio</button>
 
     <script>
+        const audio = document.getElementById('audio');
+        const muteCheckbox = document.getElementById('mute-checkbox');
+        const playOverlay = document.getElementById('play-overlay');
+
+        // Function to toggle mute/unmute
+        function toggleMute() {
+            audio.muted = !audio.muted;
+        }
+
+        // Event listener for checkbox change
+        muteCheckbox.addEventListener('change', toggleMute);
+
+        // Function to start audio
+        function startAudio() {
+            audio.play();
+            playOverlay.style.display = 'none';
+        }
+
         window.addEventListener("load", function () {
             var overlay = document.getElementById('transition-overlay');
             var content = document.getElementById('content');
-            var audio = document.getElementById('audio');
-            var muteCheckbox = document.getElementById('mute-checkbox');
-            var playButton = document.getElementById('play-button');
 
             setTimeout(function () {
                 overlay.style.opacity = 0;
@@ -105,22 +140,11 @@
                 content.classList.add('loaded');
             }, 600);
 
-            // Function to toggle mute/unmute
-            function toggleMute() {
-                audio.muted = !audio.muted;
-            }
-
-            // Function to play audio
-            function playAudio() {
-                audio.play();
-                playButton.style.display = 'none';
-            }
-
-            // Event listener for checkbox change
-            muteCheckbox.addEventListener('change', toggleMute);
-
-            // Event listener for play button
-            playButton.addEventListener('click', playAudio);
+            // Attempt to autoplay audio on desktop
+            audio.play().catch(function() {
+                // Show the play overlay if autoplay fails
+                playOverlay.style.display = 'flex';
+            });
         });
     </script>
 </body>
