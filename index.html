@@ -8,8 +8,7 @@
     <title>Brewy's website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <style>
         /* Hide the checkbox */
         #mute-checkbox {
@@ -60,23 +59,6 @@
             text-decoration: none;
             margin: 0 10px;
         }
-
-        #play-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #FFFFFF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            text-align: center;
-            font-size: 24px;
-            cursor: pointer;
-        }
     </style>
 </head>
 
@@ -84,13 +66,13 @@
     <div id="transition-overlay"></div>
     <div id="content">
         <p style="font-size: 56pt">:O</p>
-        <p>it Seems Like you've landed on Brewy's Website.</p>
-        <p>maybe adding a malwarewatch like server to make some downloads from me available. not soon tho</p>
-        <p>currently on version: UP_AND_RUNNING</p>
+        <p>It seems like you've landed on Brewy's Website.</p>
+        <p>Maybe adding a malwarewatch like server to make some downloads from me available. Not soon tho</p>
+        <p>Currently on version: UP_AND_RUNNING</p>
         <p>proudly done with <b>Frontpage 2003</b>, <b>ChatGPT</b> and <b>&#10084;</b> From Brewy.</p>
 
         <p style="font-size: 8pt">Music: Shape By LMan. Used On <b>Next Level</b>, Commodore 64 Demo made By
-            <b>Performers.</b>. seen at X'2023.</p>
+            <b>Performers.</b> Seen at X'2023.</p>
         <div id="links">
             <a href="https://www.youtube.com/@BrewyStuff">Youtube</a>
             <a href="https://www.tiktok.com/@sweet_k6anbegoniahype">TikTok</a>
@@ -98,11 +80,7 @@
         </div>
     </div>
 
-    <div id="play-overlay" onclick="startAudio()">
-        Tap to start audio
-    </div>
-
-    <audio id="audio" loop>
+    <audio id="audio" autoplay loop>
         <source src="next.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -114,7 +92,6 @@
     <script>
         const audio = document.getElementById('audio');
         const muteCheckbox = document.getElementById('mute-checkbox');
-        const playOverlay = document.getElementById('play-overlay');
 
         // Function to toggle mute/unmute
         function toggleMute() {
@@ -123,12 +100,6 @@
 
         // Event listener for checkbox change
         muteCheckbox.addEventListener('change', toggleMute);
-
-        // Function to start audio
-        function startAudio() {
-            audio.play();
-            playOverlay.style.display = 'none';
-        }
 
         window.addEventListener("load", function () {
             var overlay = document.getElementById('transition-overlay');
@@ -140,10 +111,9 @@
                 content.classList.add('loaded');
             }, 600);
 
-            // Attempt to autoplay audio on desktop
-            audio.play().catch(function() {
-                // Show the play overlay if autoplay fails
-                playOverlay.style.display = 'flex';
+            // Attempt to play the audio after the page has loaded
+            audio.play().catch(function () {
+                console.log('Autoplay prevented. User interaction needed.');
             });
         });
     </script>
