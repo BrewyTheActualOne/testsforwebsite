@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="imgs/favicon.png">
+    <meta http-equiv="Content-Language" content="it">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Brewy's website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #217DAE;
+            font-family: 'Open Sans', sans-serif;
+            color: #FFFFFF;
+        }
+
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 9999;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        #content {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #content.loaded {
+            opacity: 1;
+        }
+
+        #links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #links a {
+            color: #FFFFFF;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        #play-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FFFFFF;
+            color: #217DAE;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="audio" loop>
+        <source src="next.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="transition-overlay"></div>
+    <div id="content">
+        <p style="font-size: 56pt">:O</p>
+        <p>it Seems Like you've landed on Brewy's Website.</p>
+        <p>maybe adding a malwarewatch like server to make some downloads from me available. not soon tho</p>
+        <p>currently on version: STREAMSTUFF_0.0</p>
+        <p>proudly done with <b>Frontpage 2003</b>, <b>ChatGPT</b> and <b>&#10084;</b> From Brewy.</p>
+        <div id="links">
+            <a href="https://www.youtube.com/">Youtube</a>
+            <a href="https://www.tiktok.com/">TikTok</a>
+            <a href="https://discord.com/invite/WsUZez5C97">Discord</a>
+        </div>
+    </div>
+
+    <label for="mute-checkbox">Mute/Unmute</label>
+    <input type="checkbox" id="mute-checkbox">
+    <button id="play-button">Play Audio</button>
+
+    <script>
+        window.addEventListener("load", function () {
+            var overlay = document.getElementById('transition-overlay');
+            var content = document.getElementById('content');
+            var audio = document.getElementById('audio');
+            var muteCheckbox = document.getElementById('mute-checkbox');
+            var playButton = document.getElementById('play-button');
+
+            setTimeout(function () {
+                overlay.style.opacity = 0;
+                overlay.style.pointerEvents = 'none';
+                content.classList.add('loaded');
+            }, 600);
+
+            // Function to toggle mute/unmute
+            function toggleMute() {
+                audio.muted = !audio.muted;
+            }
+
+            // Function to play audio
+            function playAudio() {
+                audio.play();
+                playButton.style.display = 'none';
+            }
+
+            // Event listener for checkbox change
+            muteCheckbox.addEventListener('change', toggleMute);
+
+            // Event listener for play button
+            playButton.addEventListener('click', playAudio);
+        });
+    </script>
+</body>
+
+</html>
